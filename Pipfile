@@ -10,6 +10,7 @@ pillow = "*"
 psycopg2 = "*"
 python-decouple = "*"
 djangorestframework-simplejwt = "*"
+django-filter = "*"
 
 [dev-packages]
 

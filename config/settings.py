@@ -24,6 +24,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     'rest_framework_simplejwt',
+    'django_filters',
+
+
     "users",
     "note",
     "comment",
@@ -64,7 +67,9 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    )
+    ),
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 2
 
 }
 WSGI_APPLICATION = "config.wsgi.application"
