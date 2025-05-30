@@ -1,7 +1,15 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.exceptions import APIException
 
 User = get_user_model()
+
+
+class GmailAPIExeption(APIException):
+    status_code = 400
+    default_detail = {"message":"Регистрация только по gmail"}
+
+
 
 class RegisterUserSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -9,8 +17,10 @@ class RegisterUserSerializer(serializers.Serializer):
     password2 = serializers.CharField(min_length=8, write_only=True)
 
     def validate(self, attrs):
-        email = attrs.get("email")
+        email: str = attrs.get("email")
         user = User.objects.filter(email=email)
+        if not email.endswith("@gmail.com"):
+            raise GmailAPIExeption()
         if user.exists():
             raise serializers.ValidationError("Этот емейл уже занят!!!")
         password1 = attrs.pop("password1")
